@@ -1,5 +1,13 @@
 package com.example.demo;
 
+import com.example.demo.JPA_DB.Book;
+import com.example.demo.JPA_DB.Course;
+import com.example.demo.JPA_DB.Enrolment;
+import com.example.demo.JPA_DB.EnrolmentId;
+import com.example.demo.JPA_DB.StudentIdCard;
+import com.example.demo.JPA_DB.StudentIdCardRepository;
+import com.example.demo.JPA_DB.Student_DB.StudentRepositoryPagination;
+import com.example.demo.student.Student;
 import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,11 +22,54 @@ public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-    }
-
+    } 
+    
+    /*
+     * Consejos
+     * Al hacer cosas con dependencias reload el pom.xml
+     * Maven vs granle  
+     * 
+     * poner como (
+     * 
+     * ) por si luego añado cosas aunque solo haya uno
+     * 
+     * y cosas que extienden e implementan en una linea separada tamb
+     * 
+     * hay una libreria que utilizan muchos llamados lombok para meter un @getter y te hace todos etc, pero vaya, que no me hace falta, te quita visibilidad
+     * 
+     * intellij, db en la parte derecha, ctrl enter create things, github copilot, icono izq de mundo para los servicios ver ruta
+     */
+    
+    /*
+     * CREAR ENTIDADES SIN DB
+     * (1) - Sin RestController dara 404, crear Controller "RestController1.java" 
+     * (3) - Crear clase 
+     * (4) - Crear controlador, repositorio, servicio del mismo
+     * Ver clase relaciones vacias - 
+     * relaciones - 
+     */
+    
+    /*
+     * CREAR ENTIDADES CON DB 
+     * (1) - Añadir dependencia de jpa para DB (requerira configuracion DB si o si (sino da fallo)) 
+     * (3) - Crear clase
+     * (4) - Crear controlador y servicio del mismo
+     */
+    
+    /*
+     * ERRORES COMUNES
+     * 
+     * 1 - leaking internals (cosas que no tiene que saber usuario ocultarlas)
+     * 
+     * @Override
+     * @JsonIgnore  --> esto
+     * public String getPassword() {return this.password;}
+     * 
+     * */
+    
     @Bean
     CommandLineRunner commandLineRunner(
-            StudentRepository studentRepository,
+            StudentRepositoryPagination studentRepository,
             StudentIdCardRepository studentIdCardRepository) {
         return args -> {
             Faker faker = new Faker();

@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.JPA_DB;
 
 import org.springframework.data.repository.CrudRepository;
 

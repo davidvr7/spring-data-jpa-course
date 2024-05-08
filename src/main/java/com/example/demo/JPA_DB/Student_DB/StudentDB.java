@@ -1,26 +1,30 @@
-package com.example.demo;
-
+package com.example.demo.JPA_DB.Student_DB;
+ 
 import javax.persistence.*;
 
+import com.example.demo.JPA_DB.Book;
+import com.example.demo.JPA_DB.Enrolment;
+import com.example.demo.JPA_DB.StudentIdCard;
+
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
-@Entity(name = "Student")
+@Entity(name = "Student") /* Para que haga cosas en db */
 @Table(
         name = "student",
         uniqueConstraints = {
                 @UniqueConstraint(name = "student_email_unique", columnNames = "email")
         }
 )
-public class Student {
-
+public class StudentDB {
     @Id
     @SequenceGenerator(
             name = "student_sequence",
             sequenceName = "student_sequence",
-            allocationSize = 1
+            allocationSize = 1 /* cada valor nuevo es un +1*/
     )
     @GeneratedValue(
             strategy = SEQUENCE,
@@ -45,6 +49,18 @@ public class Student {
     )
     private String lastName;
 
+    /*Transient, campo calculado que no aparece en la db, pero en el json si*/
+    /* por ejemplo: calcular age a partir de columna date que si tenemos en db (no habria en contructor un age, se cambia solo get, set hace falta?*/
+    
+    /*
+    @Transient
+    private Integer age;
+    
+    public Integer getAge() {
+    	return Period.between(this.date, LocalDate.now()).getYears();
+    }
+    */
+    
     @Column(
             name = "email",
             nullable = false,
@@ -55,7 +71,6 @@ public class Student {
     @Column(
             name = "age",
             nullable = false
-
     )
     private Integer age;
 
@@ -63,7 +78,6 @@ public class Student {
             mappedBy = "student",
             orphanRemoval = true,
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE}
-
     )
     private StudentIdCard studentIdCard;
 
@@ -81,7 +95,7 @@ public class Student {
     )
     private List<Enrolment> enrolments = new ArrayList<>();
 
-    public Student(String firstName,
+    public StudentDB(String firstName,
                    String lastName,
                    String email,
                    Integer age) {
@@ -91,7 +105,7 @@ public class Student {
         this.age = age;
     }
 
-    public Student() {
+    public StudentDB() {
 
     }
 

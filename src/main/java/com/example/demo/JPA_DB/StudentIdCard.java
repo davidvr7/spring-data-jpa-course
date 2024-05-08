@@ -1,6 +1,8 @@
-package com.example.demo;
+package com.example.demo.JPA_DB;
 
 import javax.persistence.*;
+
+import com.example.demo.student.Student;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
